@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<title>Shafie Hashim — Prototaip Website</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;500;600&display=swap">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;text-align:left;cursor:pointer}
+input{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn-primary:hover{opacity:.88}
+.btn-ghost:hover{background:var(--soft)}
+.card:hover .ctitle{color:var(--accent)}
+.card:hover .cthumb{transform:translateY(-2px)}
+.cthumb{transition:transform .2s}
+.navlink:hover{color:var(--accent)}
+.tabbar{display:none}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+main > section, main > article{animation:rise .45s ease both}
+@media (prefers-reduced-motion: reduce){main > section, main > article{animation:none}.cthumb{transition:none}}
+@media (max-width: 640px){
+.desk-only{display:none !important}
+.tabbar{display:flex !important}
+.main-pad{padding-bottom: 110px !important}
+h1{font-size: 36px !important; line-height: 1.12 !important}
+h2{font-size: 27px !important}
+}
+</style>
+</helmet>
+<div style="{{rootStyle}}; min-height: 100%; font-family: Inter, system-ui, sans-serif; font-size: 17px; line-height: 1.7">
+
+<div style="background: var(--ink); color: var(--bg); font-size: 12px; padding: 8px 24px; display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: center">
+<span style="font-weight: 600; letter-spacing: 0.08em">PROTOTAIP</span>
+<span>Semua teks, tajuk dan harga ialah contoh. Fasa 1 (Blog) aktif; Fasa 2 (Kelas) dan Fasa 3 (Kedai) dipratonton.</span>
+</div>
+
+<header style="max-width: 1120px; margin: 0 auto; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<button onClick="{{goHome}}" aria-label="Ke laman utama" style="font-family: Newsreader, Georgia, serif; font-size: 24px; font-weight: 600; letter-spacing: -0.01em">Shafie Hashim</button>
+<nav aria-label="Utama" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px">
+<div class="desk-only" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px">
+<sc-for list="{{nav}}" as="n" hint-placeholder-count="4">
+<button class="navlink" onClick="{{n.go}}" style="{{n.style}}">{{n.label}}</button>
+</sc-for>
+</div>
+<button onClick="{{toggleDark}}" aria-label="Tukar mod gelap" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+</button>
+<button class="desk-only" onClick="{{openCart}}" aria-label="Buka troli" style="height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6h15l-1.6 8.2a2 2 0 0 1-2 1.6H8.6a2 2 0 0 1-2-1.6L4.5 3H2"></path><circle cx="9" cy="20" r="1.2"></circle><circle cx="18" cy="20" r="1.2"></circle></svg>
+<span>{{cartCount}}</span>
+</button>
+</nav>
+</header>
+
+<main class="main-pad" style="max-width: 1120px; margin: 0 auto; padding: 0 24px 80px">
+
+<sc-if value="{{isHome}}" hint-placeholder-val="{{ true }}">
+<section style="display: flex; flex-wrap: wrap; gap: 48px; align-items: center; padding: 56px 0 72px">
+<div style="flex: 1 1 460px; min-width: 0">
+<p style="margin: 0 0 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)"><span style="display: inline-block; width: 28px; height: 2px; background: var(--gold); vertical-align: middle; margin-right: 12px"></span>Penerbit · Penulis · Pemimpin</p>
+<h1 style="margin: 0 0 24px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 60px; line-height: 1.06; letter-spacing: -0.02em">Aku menulis tentang keputusan yang membentuk sebuah penerbitan.</h1>
+<p style="margin: 0 0 32px; max-width: 520px; font-size: 18px; color: var(--muted)">Pengajaran, kesilapan dan pandangan tentang dunia buku, daripada kerusi pemimpin yang bergerak pantas.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center">
+<a class="btn-primary" href="#lead" style="display: inline-flex; align-items: center; background: var(--accent); color: var(--on); padding: 0 26px; border-radius: 999px; font-weight: 500; min-height: 52px; text-decoration: none">Dapatkan Nota Keputusan · percuma</a>
+<button onClick="{{goArticles}}" style="font-weight: 500; min-height: 44px; display: flex; align-items: center; color: var(--ink); text-decoration: underline; text-underline-offset: 4px">Atau baca tulisan &rarr;</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px 40px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line)">
+<div><div style="font-family: Newsreader, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.1">[XX]</div><div style="font-size: 13px; color: var(--muted)">tahun dalam penerbitan</div></div>
+<div><div style="font-family: Newsreader, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.1">[XX]</div><div style="font-size: 13px; color: var(--muted)">tajuk diterbitkan</div></div>
+<div><div style="font-family: Newsreader, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.1">[XX]</div><div style="font-size: 13px; color: var(--muted)">[fakta ketiga yang boleh disahkan]</div></div>
+</div>
+</div>
+<div style="flex: 0 1 340px; min-width: 240px; width: 100%; max-width: 340px; aspect-ratio: 4 / 5; border-radius: 28px; background: var(--soft); border: 1px solid var(--line); display: flex; align-items: flex-end; padding: 20px">
+<span style="font-size: 12px; color: var(--muted)">[Foto potret]</span>
+</div>
+</section>
+
+<section style="padding-bottom: 72px">
+<p style="margin: 0 0 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">Apa yang aku bina</p>
+<h2 style="margin: 0 0 28px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 36px; letter-spacing: -0.01em; max-width: 640px">Tiga projek yang aku pimpin sekarang.</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px">
+<div style="padding: 28px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line)">
+<div style="font-size: 13px; color: var(--muted)">01</div>
+<div style="margin-top: 12px; font-family: Newsreader, Georgia, serif; font-size: 24px; font-weight: 500">Ihya' Turats</div>
+<p style="margin: 8px 0 0; color: var(--muted); font-size: 15px">[Satu ayat tentang siri karya klasik Islam ini dan kenapa ia penting.]</p>
+</div>
+<div style="padding: 28px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line)">
+<div style="font-size: 13px; color: var(--muted)">02</div>
+<div style="margin-top: 12px; font-family: Newsreader, Georgia, serif; font-size: 24px; font-weight: 500">Aplikasi komuniti</div>
+<p style="margin: 8px 0 0; color: var(--muted); font-size: 15px">[Satu ayat tentang kedai, kelas dan pembantu AI untuk pembaca.]</p>
+</div>
+<div style="padding: 28px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line)">
+<div style="font-size: 13px; color: var(--muted)">03</div>
+<div style="margin-top: 12px; font-family: Newsreader, Georgia, serif; font-size: 24px; font-weight: 500">PBAKL</div>
+<p style="margin: 8px 0 0; color: var(--muted); font-size: 15px">[Satu ayat tentang penyertaan tahunan di Pesta Buku Antarabangsa Kuala Lumpur.]</p>
+</div>
+</div>
+</section>
+
+<section style="padding-bottom: 72px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 28px">
+<h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 36px; letter-spacing: -0.01em">Tulisan terbaru</h2>
+<button onClick="{{goArticles}}" style="font-weight: 500; color: var(--accent); min-height: 44px; display: flex; align-items: center">Semua tulisan &rarr;</button>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px">
+<sc-for list="{{latest}}" as="a" hint-placeholder-count="3">
+<button class="card" onClick="{{a.open}}" style="display: block">
+<span class="cthumb" style="display: flex; align-items: flex-end; justify-content: space-between; height: 180px; padding: 16px; border-radius: 20px; background: var(--soft); border: 1px solid var(--line)">
+<span style="font-size: 12px; font-weight: 500; color: var(--muted)">{{a.cat}}</span>
+<sc-if value="{{a.video}}" hint-placeholder-val="{{ false }}">
+<span style="width: 40px; height: 40px; border-radius: 999px; background: var(--accent); color: var(--on); display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z"></path></svg></span>
+</sc-if>
+</span>
+<span style="display: block; margin-top: 16px; font-size: 13px; color: var(--muted)">{{a.date}} · {{a.mins}} min</span>
+<span class="ctitle" style="display: block; margin-top: 4px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 24px; line-height: 1.25; transition: color .15s">{{a.title}}</span>
+</button>
+</sc-for>
+</div>
+</section>
+
+<section style="padding-bottom: 72px">
+<h2 style="margin: 0 0 28px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 36px; letter-spacing: -0.01em">Tiga cara untuk bersama</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px">
+<button class="card btn-ghost" onClick="{{goArticles}}" style="display: block; padding: 28px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface)">
+<span style="display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--accent); color: var(--on)">Fasa 1 · Aktif</span>
+<span style="display: block; margin-top: 16px; font-family: Newsreader, Georgia, serif; font-size: 26px; font-weight: 500">Tulisan</span>
+<span style="display: block; margin-top: 6px; color: var(--muted)">Artikel dan video tentang keputusan, pengajaran dan pandangan industri.</span>
+</button>
+<button class="card btn-ghost" onClick="{{goCourses}}" style="display: block; padding: 28px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface)">
+<span style="display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--muted); color: var(--muted)">Fasa 2 · Pratonton</span>
+<span style="display: block; margin-top: 16px; font-family: Newsreader, Georgia, serif; font-size: 26px; font-weight: 500">Kelas</span>
+<span style="display: block; margin-top: 6px; color: var(--muted)">Kelas rakaman. Bayar sekali, belajar mengikut rentak sendiri.</span>
+</button>
+<button class="card btn-ghost" onClick="{{goShop}}" style="display: block; padding: 28px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface)">
+<span style="display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--muted); color: var(--muted)">Fasa 3 · Pratonton</span>
+<span style="display: block; margin-top: 16px; font-family: Newsreader, Georgia, serif; font-size: 26px; font-weight: 500">Kedai</span>
+<span style="display: block; margin-top: 6px; color: var(--muted)">Produk digital dan fizikal, dihantar terus ke rumah anda.</span>
+</button>
+</div>
+</section>
+
+<section style="padding-bottom: 72px; display: flex; flex-wrap: wrap; gap: 24px 64px">
+<div style="flex: 0 1 240px; min-width: 200px">
+<p style="margin: 0 0 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">Surat daripada Shafie</p>
+</div>
+<div style="flex: 1 1 460px; min-width: 0; max-width: 680px">
+<p style="margin: 0 0 16px; font-family: Newsreader, Georgia, serif; font-size: 26px; line-height: 1.45">[Tiga atau empat ayat peribadi: kenapa kau menulis, apa yang pembaca akan dapat di sini, dan siapa tulisan ini untuk.]</p>
+<p style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 22px; font-style: italic">— Shafie</p>
+</div>
+</section>
+
+<section style="padding-bottom: 72px; display: flex; flex-wrap: wrap; gap: 24px 64px">
+<div style="flex: 0 1 240px; min-width: 200px">
+<p style="margin: 0 0 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">Soalan lazim</p>
+</div>
+<div style="flex: 1 1 460px; min-width: 0; max-width: 720px">
+<sc-for list="{{faqs}}" as="f" hint-placeholder-count="4">
+<div style="border-top: 1px solid var(--line)">
+<button onClick="{{f.toggle}}" aria-expanded="{{f.open}}" style="display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: 12px 0; font-family: Newsreader, Georgia, serif; font-size: 22px; font-weight: 500">
+<span>{{f.q}}</span>
+<span style="flex: 0 0 auto; font-size: 24px; color: var(--accent); line-height: 1">{{f.sign}}</span>
+</button>
+<sc-if value="{{f.open}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0 0 20px; color: var(--muted); max-width: 600px">{{f.a}}</p>
+</sc-if>
+</div>
+</sc-for>
+<div style="border-top: 1px solid var(--line)"></div>
+</div>
+</section>
+
+<section id="lead" style="padding: 48px 32px; border-radius: 28px; background: var(--soft); border: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: center">
+<div style="flex: 1 1 320px; min-width: 0">
+<p style="margin: 0 0 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">Hadiah percuma</p>
+<h2 style="margin: 0 0 8px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 32px">Nota Keputusan Pemimpin (PDF)</h2>
+<p style="margin: 0; color: var(--muted)">[Satu ayat tentang apa dalam nota ini.] Dapatkannya di emel anda, bersama tulisan baharu bila ada. Tiada spam.</p>
+</div>
+<div style="flex: 1 1 340px; min-width: 0">
+<sc-if value="{{notSubscribed}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<label for="email-home" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Emel</label>
+<input id="email-home" type="email" placeholder="nama@emel.com" style="flex: 1 1 200px; min-height: 48px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface)">
+<button class="btn-primary" onClick="{{subscribe}}" style="background: var(--accent); color: var(--on); padding: 0 24px; min-height: 48px; border-radius: 999px; font-weight: 500">Hantar kepada saya</button>
+</div>
+</sc-if>
+<sc-if value="{{subscribed}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; font-weight: 500; color: var(--accent)">Terima kasih. Nota sedang dihantar ke emel anda (simulasi).</p>
+</sc-if>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{isArticles}}" hint-placeholder-val="{{ false }}">
+<section style="padding: 40px 0">
+<h1 style="margin: 0 0 8px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 52px; letter-spacing: -0.02em">Tulisan</h1>
+<p style="margin: 0 0 32px; color: var(--muted); max-width: 560px">Tentang keputusan, pengajaran dan pandangan industri. Ada yang ditulis, ada yang dirakam.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 36px">
+<label for="cari" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Cari tulisan</label>
+<input id="cari" type="search" value="{{query}}" onInput="{{onQuery}}" placeholder="Cari tulisan…" style="flex: 1 1 240px; max-width: 360px; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface)">
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="4">
+<button onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{hasResults}}" hint-placeholder-val="{{ true }}">
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 36px 28px">
+<sc-for list="{{filtered}}" as="a" hint-placeholder-count="6">
+<button class="card" onClick="{{a.open}}" style="display: block">
+<span class="cthumb" style="display: flex; align-items: flex-end; justify-content: space-between; height: 180px; padding: 16px; border-radius: 20px; background: var(--soft); border: 1px solid var(--line)">
+<span style="font-size: 12px; font-weight: 500; color: var(--muted)">{{a.cat}}</span>
+<sc-if value="{{a.video}}" hint-placeholder-val="{{ false }}">
+<span style="width: 40px; height: 40px; border-radius: 999px; background: var(--accent); color: var(--on); display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z"></path></svg></span>
+</sc-if>
+</span>
+<span style="display: block; margin-top: 16px; font-size: 13px; color: var(--muted)">{{a.date}} · {{a.mins}} min</span>
+<span class="ctitle" style="display: block; margin-top: 4px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 24px; line-height: 1.25; transition: color .15s">{{a.title}}</span>
+<span style="display: block; margin-top: 8px; color: var(--muted); font-size: 15px">{{a.excerpt}}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{noResults}}" hint-placeholder-val="{{ false }}">
+<p style="color: var(--muted)">Tiada tulisan sepadan. Cuba kata kunci atau kategori lain.</p>
+</sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{isArticle}}" hint-placeholder-val="{{ false }}">
+<article style="max-width: 720px; margin: 0 auto; padding: 40px 0">
+<div style="{{progStyle}}" role="progressbar" aria-label="Kemajuan bacaan" aria-hidden="true"></div>
+<button onClick="{{goArticles}}" style="color: var(--accent); font-weight: 500; min-height: 44px; display: flex; align-items: center">&larr; Semua tulisan</button>
+<p style="margin: 24px 0 12px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent)">{{cur.cat}}</p>
+<h1 style="margin: 0 0 16px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 48px; line-height: 1.1; letter-spacing: -0.02em">{{cur.title}}</h1>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 0 0 32px">
+<p style="margin: 0; color: var(--muted); font-size: 14px">Shafie Hashim · {{cur.date}} · {{cur.mins}} min baca</p>
+<div style="display: flex; gap: 6px" role="group" aria-label="Saiz teks">
+<button onClick="{{fontSmaller}}" aria-label="Kecilkan teks" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line); text-align: center; font-size: 14px; font-weight: 600">A&minus;</button>
+<button onClick="{{fontLarger}}" aria-label="Besarkan teks" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line); text-align: center; font-size: 18px; font-weight: 600">A+</button>
+</div>
+</div>
+<p style="{{leadStyle}}">{{cur.excerpt}}</p>
+
+<sc-if value="{{cur.video}}" hint-placeholder-val="{{ false }}">
+<div style="margin: 0 0 32px">
+<sc-if value="{{videoOff}}" hint-placeholder-val="{{ true }}">
+<button onClick="{{playVideo}}" aria-label="Main video" style="display: flex; width: 100%; aspect-ratio: 16 / 9; border-radius: 20px; background: var(--ink); align-items: center; justify-content: center">
+<span style="width: 72px; height: 72px; border-radius: 999px; background: var(--accent); color: var(--on); display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z"></path></svg></span>
+</button>
+</sc-if>
+<sc-if value="{{videoOn}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; width: 100%; aspect-ratio: 16 / 9; border-radius: 20px; background: var(--ink); color: var(--bg); align-items: center; justify-content: center; text-align: center; padding: 24px; font-size: 14px">Video dimainkan di sini (YouTube / Vimeo, kemudian Mux untuk kelas)</div>
+</sc-if>
+<p style="margin: 10px 0 0; font-size: 13px; color: var(--muted)">Video dibenamkan terus dalam artikel.</p>
+</div>
+</sc-if>
+
+<div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px" aria-label="Contoh ruang isi artikel">
+<div style="height: 12px; width: 100%; border-radius: 6px; background: var(--line)"></div>
+<div style="height: 12px; width: 96%; border-radius: 6px; background: var(--line)"></div>
+<div style="height: 12px; width: 88%; border-radius: 6px; background: var(--line)"></div>
+<div style="height: 12px; width: 100%; border-radius: 6px; background: var(--line); margin-top: 18px"></div>
+<div style="height: 12px; width: 92%; border-radius: 6px; background: var(--line)"></div>
+<div style="height: 12px; width: 60%; border-radius: 6px; background: var(--line)"></div>
+<p style="margin: 8px 0 0; font-size: 13px; color: var(--muted)">[Isi artikel ditulis dalam editor admin dan disimpan dalam Supabase]</p>
+</div>
+
+<div style="padding: 32px; border-radius: 24px; background: var(--soft); border: 1px solid var(--line)">
+<h2 style="margin: 0 0 6px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 26px">Suka tulisan ini?</h2>
+<p style="margin: 0 0 18px; color: var(--muted)">Dapatkan yang seterusnya terus dalam emel.</p>
+<sc-if value="{{notSubscribed}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<label for="email-art" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Emel</label>
+<input id="email-art" type="email" placeholder="nama@emel.com" style="flex: 1 1 200px; min-height: 48px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface)">
+<button class="btn-primary" onClick="{{subscribe}}" style="background: var(--accent); color: var(--on); padding: 0 24px; min-height: 48px; border-radius: 999px; font-weight: 500">Langgan</button>
+</div>
+</sc-if>
+<sc-if value="{{subscribed}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; font-weight: 500; color: var(--accent)">Terima kasih. Anda sudah dilanggan (simulasi).</p>
+</sc-if>
+</div>
+
+<h2 style="margin: 56px 0 20px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 28px">Baca seterusnya</h2>
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{related}}" as="a" hint-placeholder-count="3">
+<button class="card" onClick="{{a.open}}" style="display: block; padding: 18px 0; border-top: 1px solid var(--line)">
+<span style="display: block; font-size: 13px; color: var(--muted)">{{a.cat}} · {{a.mins}} min</span>
+<span class="ctitle" style="display: block; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 22px; transition: color .15s">{{a.title}}</span>
+</button>
+</sc-for>
+</div>
+</article>
+</sc-if>
+
+<sc-if value="{{isCourses}}" hint-placeholder-val="{{ false }}">
+<section style="padding: 40px 0">
+<span style="display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--muted); color: var(--muted)">Fasa 2 · Pratonton</span>
+<h1 style="margin: 16px 0 8px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 52px; letter-spacing: -0.02em">Kelas</h1>
+<p style="margin: 0 0 36px; color: var(--muted); max-width: 560px">Kelas rakaman. Bayar sekali, akses dibuka serta-merta dan kemajuan anda disimpan.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px">
+<sc-for list="{{courseCards}}" as="c" hint-placeholder-count="2">
+<button class="card" onClick="{{c.open}}" style="display: block; border-radius: 24px; border: 1px solid var(--line); background: var(--surface); overflow: hidden">
+<span class="cthumb" style="display: flex; align-items: center; justify-content: center; height: 200px; background: var(--soft)">
+<span style="width: 56px; height: 56px; border-radius: 999px; background: var(--accent); color: var(--on); display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z"></path></svg></span>
+</span>
+<span style="display: block; padding: 24px">
+<span style="display: block; font-size: 13px; color: var(--muted)">{{c.count}} pelajaran · rakaman</span>
+<span class="ctitle" style="display: block; margin-top: 4px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 26px; line-height: 1.2; transition: color .15s">{{c.title}}</span>
+<span style="display: block; margin-top: 8px; color: var(--muted); font-size: 15px">{{c.blurb}}</span>
+<span style="display: block; margin-top: 16px; font-weight: 600">{{c.price}}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{isCourse}}" hint-placeholder-val="{{ false }}">
+<section style="padding: 32px 0">
+<button onClick="{{goCourses}}" style="color: var(--accent); font-weight: 500; min-height: 44px; display: flex; align-items: center">&larr; Semua kelas</button>
+<h1 style="margin: 12px 0 28px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 42px; line-height: 1.1; letter-spacing: -0.02em">{{course.title}}</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+<div style="flex: 999 1 560px; min-width: 0">
+<div style="display: flex; flex-direction: column; justify-content: space-between; width: 100%; aspect-ratio: 16 / 9; border-radius: 20px; background: var(--ink); color: var(--bg); padding: 24px">
+<span style="font-size: 13px; opacity: 0.8">Pelajaran {{lessonNo}}</span>
+<span style="align-self: center; width: 72px; height: 72px; border-radius: 999px; background: var(--accent); color: var(--on); display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z"></path></svg></span>
+<span style="font-family: Newsreader, Georgia, serif; font-size: 22px">{{lessonTitle}}</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin-top: 20px">
+<sc-if value="{{enrolled}}" hint-placeholder-val="{{ false }}">
+<button class="btn-ghost" onClick="{{markDone}}" style="border: 1px solid var(--line); padding: 0 22px; min-height: 48px; border-radius: 999px; font-weight: 500; display: flex; align-items: center">{{doneLabel}}</button>
+</sc-if>
+<sc-if value="{{notEnrolled}}" hint-placeholder-val="{{ true }}">
+<button class="btn-primary" onClick="{{buyCourse}}" style="background: var(--accent); color: var(--on); padding: 0 24px; min-height: 48px; border-radius: 999px; font-weight: 500">Daftar kelas · {{course.price}}</button>
+</sc-if>
+<span style="font-size: 14px; color: var(--muted)">{{doneCount}} / {{lessonTotal}} selesai</span>
+</div>
+<div style="margin-top: 14px; height: 6px; border-radius: 6px; background: var(--line)"><div style="{{barStyle}}"></div></div>
+</div>
+<aside style="flex: 1 1 300px; min-width: 0; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); padding: 8px" aria-label="Senarai pelajaran">
+<sc-for list="{{lessons}}" as="l" hint-placeholder-count="5">
+<button onClick="{{l.pick}}" style="{{l.style}}">
+<span style="flex: 0 0 28px; font-size: 13px; color: var(--muted)">{{l.n}}</span>
+<span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 500">{{l.title}}</span>
+<span style="flex: 0 0 auto; font-size: 12px; color: var(--muted)">{{l.tag}}</span>
+</button>
+</sc-for>
+</aside>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{isShop}}" hint-placeholder-val="{{ false }}">
+<section style="padding: 40px 0">
+<span style="display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--muted); color: var(--muted)">Fasa 3 · Pratonton</span>
+<h1 style="margin: 16px 0 8px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 52px; letter-spacing: -0.02em">Kedai</h1>
+<p style="margin: 0 0 36px; color: var(--muted); max-width: 560px">Produk digital dimuat turun serta-merta. Produk fizikal dihantar melalui kurier.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px">
+<sc-for list="{{products}}" as="p" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; border-radius: 20px; border: 1px solid var(--line); background: var(--surface); overflow: hidden">
+<div style="height: 180px; background: var(--soft); display: flex; align-items: flex-start; padding: 16px">
+<span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line)">{{p.type}}</span>
+</div>
+<div style="display: flex; flex-direction: column; flex: 1 1 auto; padding: 20px">
+<span style="font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 22px; line-height: 1.2">{{p.name}}</span>
+<span style="margin-top: 6px; font-size: 14px; color: var(--muted)">{{p.desc}}</span>
+<span style="margin: 14px 0 16px; font-weight: 600">{{p.price}}</span>
+<button onClick="{{p.toggle}}" style="{{p.btnStyle}}">{{p.btnLabel}}</button>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{isAbout}}" hint-placeholder-val="{{ false }}">
+<section style="display: flex; flex-wrap: wrap; gap: 48px; padding: 56px 0; align-items: flex-start">
+<div style="flex: 0 1 320px; width: 100%; max-width: 320px; aspect-ratio: 4 / 5; border-radius: 28px; background: var(--soft); border: 1px solid var(--line); display: flex; align-items: flex-end; padding: 20px">
+<span style="font-size: 12px; color: var(--muted)">[Foto potret]</span>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; max-width: 640px">
+<h1 style="margin: 0 0 24px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 48px; line-height: 1.1; letter-spacing: -0.02em">Tentang</h1>
+<p style="margin: 0 0 18px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.5">[Satu perenggan pengenalan anda: siapa anda, apa yang anda pimpin, dan apa yang pembaca akan dapat di sini.]</p>
+<p style="margin: 0 0 28px; color: var(--muted)">[Perenggan kedua: perjalanan, nilai dan topik yang anda tulis.]</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<button class="btn-primary" onClick="{{goArticles}}" style="background: var(--accent); color: var(--on); padding: 0 24px; min-height: 48px; border-radius: 999px; font-weight: 500">Baca tulisan</button>
+<button class="btn-ghost" onClick="{{goHome}}" style="border: 1px solid var(--line); padding: 0 24px; min-height: 48px; border-radius: 999px; font-weight: 500">Laman utama</button>
+</div>
+</div>
+</section>
+</sc-if>
+
+</main>
+
+<nav class="tabbar" aria-label="Menu bawah" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--surface); border-top: 1px solid var(--line); padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); justify-content: space-around">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="4">
+<button onClick="{{t.go}}" style="{{t.style}}">
+<span style="position: relative; display: block; height: 24px">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.icon}}"></path></svg>
+<span style="{{t.badgeStyle}}">{{t.badge}}</span>
+</span>
+<span style="font-size: 12px; font-weight: 500">{{t.label}}</span>
+</button>
+</sc-for>
+</nav>
+
+<footer style="border-top: 1px solid var(--line)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; font-size: 14px; color: var(--muted)">
+<span>© Shafie Hashim</span>
+<span>Dibina di Vercel · Supabase · GitHub</span>
+</div>
+</footer>
+
+<sc-if value="{{showCart}}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; inset: 0; z-index: 50; display: flex; justify-content: flex-end">
+<button onClick="{{closeModal}}" aria-label="Tutup troli" style="position: absolute; inset: 0; background: rgba(10, 10, 8, 0.45); cursor: default"></button>
+<aside role="dialog" aria-label="Troli" style="position: relative; width: 100%; max-width: 420px; height: 100%; background: var(--bg); color: var(--ink); border-left: 1px solid var(--line); padding: 28px; display: flex; flex-direction: column; overflow-y: auto">
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px">
+<h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 28px">Troli</h2>
+<button onClick="{{closeModal}}" aria-label="Tutup" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<sc-if value="{{cartEmpty}}" hint-placeholder-val="{{ false }}">
+<p style="color: var(--muted)">Troli kosong. Layari kedai untuk menambah produk.</p>
+<button class="btn-ghost" onClick="{{goShop}}" style="border: 1px solid var(--line); padding: 0 22px; min-height: 48px; border-radius: 999px; font-weight: 500; display: flex; align-items: center; align-self: flex-start">Ke kedai</button>
+</sc-if>
+<sc-if value="{{cartFull}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{cartItems}}" as="i" hint-placeholder-count="2">
+<div style="display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 14px 0; border-top: 1px solid var(--line)">
+<div style="min-width: 0">
+<div style="font-weight: 500">{{i.name}}</div>
+<div style="font-size: 13px; color: var(--muted)">{{i.type}} · {{i.price}}</div>
+</div>
+<button onClick="{{i.remove}}" style="font-size: 14px; color: var(--muted); min-height: 44px; padding: 0 8px; text-decoration: underline">Buang</button>
+</div>
+</sc-for>
+</div>
+<div style="margin-top: 16px; padding: 16px; border-radius: 16px; background: var(--soft); font-size: 14px; color: var(--muted); display: flex; flex-direction: column; gap: 6px">
+<sc-if value="{{hasDigital}}" hint-placeholder-val="{{ true }}"><span>Produk digital: pautan muat turun dihantar selepas bayaran.</span></sc-if>
+<sc-if value="{{hasPhysical}}" hint-placeholder-val="{{ true }}"><span>Produk fizikal: kos pos dikira melalui EasyParcel mengikut alamat.</span></sc-if>
+</div>
+<div style="display: flex; justify-content: space-between; margin: 20px 0 16px; font-weight: 600"><span>Jumlah</span><span>RM XX</span></div>
+<button class="btn-primary" onClick="{{checkoutCart}}" style="background: var(--accent); color: var(--on); min-height: 52px; border-radius: 999px; font-weight: 500; text-align: center">Teruskan ke bayaran</button>
+</sc-if>
+</aside>
+</div>
+</sc-if>
+
+<sc-if value="{{showPay}}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 20px">
+<button onClick="{{closeModal}}" aria-label="Tutup bayaran" style="position: absolute; inset: 0; background: rgba(10, 10, 8, 0.55); cursor: default"></button>
+<div role="dialog" aria-label="Bayaran" style="position: relative; width: 100%; max-width: 460px; max-height: 100%; overflow-y: auto; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 24px; padding: 28px">
+<sc-if value="{{payChoose}}" hint-placeholder-val="{{ true }}">
+<h2 style="margin: 0 0 4px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 26px">{{payTitle}}</h2>
+<p style="margin: 0 0 20px; font-size: 14px; color: var(--muted)">Simulasi. Tiada bayaran sebenar dibuat.</p>
+<div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px">
+<sc-for list="{{methods}}" as="m" hint-placeholder-count="2">
+<button onClick="{{m.pick}}" style="{{m.style}}">
+<span style="display: block; font-weight: 500">{{m.label}}</span>
+<span style="display: block; font-size: 13px; color: var(--muted)">{{m.sub}}</span>
+</button>
+</sc-for>
+</div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap">
+<button class="btn-primary" onClick="{{confirmPay}}" style="flex: 1 1 200px; background: var(--accent); color: var(--on); min-height: 52px; border-radius: 999px; font-weight: 500; text-align: center">Bayar sekarang</button>
+<button class="btn-ghost" onClick="{{closeModal}}" style="flex: 0 0 auto; border: 1px solid var(--line); padding: 0 22px; min-height: 52px; border-radius: 999px; font-weight: 500">Batal</button>
+</div>
+</sc-if>
+<sc-if value="{{payDone}}" hint-placeholder-val="{{ false }}">
+<div style="width: 56px; height: 56px; border-radius: 999px; background: var(--accent); color: var(--on); display: flex; align-items: center; justify-content: center; margin-bottom: 16px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div>
+<h2 style="margin: 0 0 8px; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 26px">Bayaran berjaya</h2>
+<p style="margin: 0 0 24px; color: var(--muted)">{{payMsg}}</p>
+<button class="btn-primary" onClick="{{closeModal}}" style="background: var(--accent); color: var(--on); padding: 0 28px; min-height: 52px; border-radius: 999px; font-weight: 500">Teruskan</button>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1360,"height":1900}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._sc = (e) => {
+      const t = e.target;
+      const el = (t && t.scrollingElement) ? t.scrollingElement : (t && t.nodeType === 1 ? t : document.documentElement);
+      const max = el.scrollHeight - el.clientHeight;
+      const p = max > 0 ? Math.min(100, Math.max(0, Math.round((el.scrollTop / max) * 100))) : 0;
+      const cur = (this.state && this.state.progress) || 0;
+      if (Math.abs(p - cur) >= 1) this.setState({ progress: p });
+    };
+    window.addEventListener('scroll', this._sc, true);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._sc, true);
+  }
+  renderVals() {
+    const s = Object.assign({
+      screen: 'home', cat: 'Semua', query: '', articleId: 'a1', courseId: 'c1', lesson: 0,
+      enrolled: {}, done: {}, cart: [], modal: '', payTarget: '', method: 'fpx',
+      payStep: 'choose', payMsg: '', subscribed: false, video: false, faq: -1, fs: 1, progress: 0
+    }, this.state || {});
+    const dark = s.dark !== undefined ? s.dark : !!this.props.dark;
+    const set = (o) => () => this.setState(o);
+
+    const L = { bg: '#FAF8F3', surface: '#FFFFFF', ink: '#1B1A17', muted: '#5C5A52', line: '#E6E1D4', accent: '#0F5C4D', soft: '#E3EFEA', on: '#FFFFFF', gold: '#B8862B' };
+    const D = { bg: '#121311', surface: '#1B1C19', ink: '#F3F1EA', muted: '#A8A59B', line: '#2C2D29', accent: '#6FD0B6', soft: '#1B2A25', on: '#0B1F1A', gold: '#D4A64A' };
+    const P = dark ? D : L;
+    const rootStyle = '--bg:' + P.bg + ';--surface:' + P.surface + ';--ink:' + P.ink + ';--muted:' + P.muted + ';--line:' + P.line + ';--accent:' + P.accent + ';--soft:' + P.soft + ';--on:' + P.on + ';--gold:' + P.gold + ';background:var(--bg);color:var(--ink)';
+
+    const screen = s.screen;
+    const navItems = [['articles', 'Tulisan'], ['courses', 'Kelas'], ['shop', 'Kedai'], ['about', 'Tentang']];
+    const nav = navItems.map((n) => {
+      const active = screen === n[0] || (screen === 'article' && n[0] === 'articles') || (screen === 'course' && n[0] === 'courses');
+      return {
+        label: n[1],
+        go: set({ screen: n[0], modal: '', query: '', cat: 'Semua' }),
+        style: 'min-height:44px;font-size:15px;font-weight:500;border-bottom:2px solid ' + (active ? 'var(--accent)' : 'transparent') + ';color:' + (active ? 'var(--ink)' : 'var(--muted)')
+      };
+    });
+
+    const cats = ['Semua', 'Keputusan', 'Pengajaran', 'Pandangan Industri'];
+    const articles = [
+      { id: 'a1', cat: 'Keputusan', title: 'Keputusan yang aku tangguh terlalu lama', excerpt: 'Ada keputusan yang nampak kecil, tapi setiap minggu ia ditangguh, kosnya membesar senyap-senyap.', date: '12 Nov 2026', mins: 5, video: false },
+      { id: 'a2', cat: 'Pandangan Industri', title: 'Kenapa buku klasik masih relevan untuk pembaca muda', excerpt: 'Pembaca muda bukan tak mahu teks berat. Mereka mahu pintu masuk yang jujur.', date: '08 Nov 2026', mins: 7, video: true },
+      { id: 'a3', cat: 'Pengajaran', title: 'Belajar daripada kempen yang tak menjadi', excerpt: 'Apa yang aku catat selepas satu kempen gagal, dan apa yang aku ubah selepas itu.', date: '02 Nov 2026', mins: 6, video: false },
+      { id: 'a4', cat: 'Keputusan', title: 'Cara aku memilih manuskrip untuk diterbitkan', excerpt: 'Senarai semak ringkas yang aku guna sebelum berkata ya atau tidak kepada seorang penulis.', date: '27 Okt 2026', mins: 8, video: true },
+      { id: 'a5', cat: 'Pandangan Industri', title: 'Marketing buku bila bajet ketat', excerpt: 'Bila bajet terhad, kreativiti bukan pengganti disiplin. Ia hasil daripada disiplin.', date: '20 Okt 2026', mins: 5, video: false },
+      { id: 'a6', cat: 'Pengajaran', title: 'Tiga soalan sebelum aku setuju pada sesuatu projek', excerpt: 'Soalan pendek yang menyelamatkan banyak minggu kerja yang sia-sia.', date: '14 Okt 2026', mins: 4, video: false }
+    ];
+    const view = (a) => ({ id: a.id, cat: a.cat, title: a.title, excerpt: a.excerpt, date: a.date, mins: a.mins, video: a.video, open: set({ screen: 'article', articleId: a.id, modal: '', video: false, progress: 0 }) });
+    const q = (s.query || '').trim().toLowerCase();
+    const filteredRaw = articles.filter((a) => (s.cat === 'Semua' || a.cat === s.cat) && (!q || (a.title + ' ' + a.excerpt).toLowerCase().indexOf(q) >= 0));
+    const chips = cats.map((c) => ({
+      label: c,
+      pick: set({ cat: c }),
+      style: 'min-height:44px;padding:0 18px;border-radius:999px;font-size:14px;font-weight:500;border:1px solid ' + (s.cat === c ? 'var(--ink)' : 'var(--line)') + ';background:' + (s.cat === c ? 'var(--ink)' : 'transparent') + ';color:' + (s.cat === c ? 'var(--bg)' : 'var(--ink)')
+    }));
+    const curRaw = articles.find((a) => a.id === s.articleId) || articles[0];
+
+    const courses = [
+      { id: 'c1', title: 'Marketing Buku dari Kosong', blurb: 'Dari memahami pembaca sehingga mengukur apa yang benar-benar menjual.', price: 'RM XX', lessons: [['Cara fikir pembaca sasaran', '9 min'], ['Hook yang menghentikan scroll', '12 min'], ['Susun kempen pelancaran', '14 min'], ['Ukur apa yang berjaya', '10 min'], ['Bila untuk reprint atau lelong', '11 min']] },
+      { id: 'c2', title: 'Membina Personal Brand untuk Pemimpin', blurb: 'Menulis dengan suara sendiri, secara konsisten, tanpa rasa dipaksa.', price: 'RM XX', lessons: [['Tentukan suara anda', '8 min'], ['Tiga jenis tulisan yang berulang', '12 min'], ['Dari idea ke draf dalam 30 minit', '10 min'], ['Ritma terbit yang boleh dikekalkan', '9 min']] }
+    ];
+    const courseCards = courses.map((c) => ({ id: c.id, title: c.title, blurb: c.blurb, price: c.price, count: c.lessons.length, open: set({ screen: 'course', courseId: c.id, lesson: 0, modal: '' }) }));
+    const course = courses.find((c) => c.id === s.courseId) || courses[0];
+    const isEnrolled = !!s.enrolled[course.id];
+    const lessonIdx = Math.min(s.lesson, course.lessons.length - 1);
+    const doneKey = (i) => course.id + ':' + i;
+    const doneCount = course.lessons.filter((x, i) => s.done[doneKey(i)]).length;
+    const total = course.lessons.length;
+    const lessons = course.lessons.map((l, i) => {
+      const locked = !isEnrolled && i > 0;
+      const current = i === lessonIdx;
+      const isDone = !!s.done[doneKey(i)];
+      return {
+        n: i + 1,
+        title: l[0],
+        tag: locked ? 'Terkunci' : (isDone ? 'Selesai' : (i === 0 && !isEnrolled ? 'Pratonton' : l[1])),
+        style: 'display:flex;gap:10px;align-items:center;width:100%;min-height:52px;padding:10px 14px;border-radius:14px;background:' + (current ? 'var(--soft)' : 'transparent') + ';color:' + (locked ? 'var(--muted)' : 'var(--ink)'),
+        pick: locked ? set({ modal: 'pay', payTarget: 'course:' + course.id, payStep: 'choose' }) : set({ lesson: i })
+      };
+    });
+    const markDone = () => { const d = Object.assign({}, s.done); d[doneKey(lessonIdx)] = !d[doneKey(lessonIdx)]; this.setState({ done: d }); };
+
+    const products = [
+      { id: 'p1', name: 'Nota Keputusan Pemimpin', type: 'Digital', desc: 'PDF · muat turun segera', price: 'RM XX' },
+      { id: 'p2', name: 'Templat Pelan Marketing Buku', type: 'Digital', desc: 'Spreadsheet · muat turun segera', price: 'RM XX' },
+      { id: 'p3', name: 'Jurnal Keputusan', type: 'Fizikal', desc: 'Dihantar melalui kurier', price: 'RM XX' },
+      { id: 'p4', name: 'Set Penanda Buku', type: 'Fizikal', desc: 'Dihantar melalui kurier', price: 'RM XX' }
+    ];
+    const toggleCart = (id) => () => {
+      const c = s.cart.slice(); const at = c.indexOf(id);
+      if (at >= 0) c.splice(at, 1); else c.push(id);
+      this.setState({ cart: c });
+    };
+    const productViews = products.map((p) => {
+      const inCart = s.cart.indexOf(p.id) >= 0;
+      return Object.assign({}, p, {
+        toggle: toggleCart(p.id),
+        btnLabel: inCart ? 'Dalam troli · Buang' : 'Tambah ke troli',
+        btnStyle: 'min-height:48px;border-radius:999px;font-weight:500;text-align:center;border:1px solid ' + (inCart ? 'var(--line)' : 'var(--accent)') + ';background:' + (inCart ? 'transparent' : 'var(--accent)') + ';color:' + (inCart ? 'var(--ink)' : 'var(--on)')
+      });
+    });
+    const cartProducts = products.filter((p) => s.cart.indexOf(p.id) >= 0);
+    const cartItems = cartProducts.map((p) => Object.assign({}, p, { remove: toggleCart(p.id) }));
+    const hasPhysical = cartProducts.some((p) => p.type === 'Fizikal');
+    const hasDigital = cartProducts.some((p) => p.type === 'Digital');
+
+    const payIsCourse = (s.payTarget || '').indexOf('course:') === 0;
+    const payCourse = payIsCourse ? (courses.find((c) => c.id === s.payTarget.slice(7)) || course) : null;
+    const confirmPay = () => {
+      const enr = Object.assign({}, s.enrolled);
+      let cart = s.cart; let msg;
+      if (payIsCourse) { enr[payCourse.id] = true; msg = 'Akses kelas "' + payCourse.title + '" telah dibuka. Anda boleh mula belajar sekarang.'; }
+      else {
+        const parts = [];
+        if (hasDigital) parts.push('Pautan muat turun dihantar ke emel anda.');
+        if (hasPhysical) parts.push('Nombor penjejakan kurier akan dihantar apabila pesanan dipos.');
+        msg = parts.join(' ') || 'Pesanan diterima.';
+        cart = [];
+      }
+      this.setState({ enrolled: enr, cart: cart, payStep: 'done', payMsg: msg });
+    };
+    const methods = [
+      { key: 'fpx', label: 'FPX (perbankan internet)', sub: 'Pilih bank anda pada langkah seterusnya' },
+      { key: 'card', label: 'Kad kredit atau debit', sub: 'Visa dan Mastercard' }
+    ].map((m) => ({
+      label: m.label, sub: m.sub, pick: set({ method: m.key }),
+      style: 'width:100%;min-height:60px;padding:12px 16px;border-radius:16px;border:2px solid ' + (s.method === m.key ? 'var(--accent)' : 'var(--line)') + ';background:' + (s.method === m.key ? 'var(--soft)' : 'transparent')
+    }));
+
+    const faqData = [
+      ['Siapa Shafie?', '[Dua ayat ringkas tentang latar belakang dan peranan anda.]'],
+      ['Apa yang akan aku dapat daripada tulisan ini?', '[Dua ayat tentang tema: keputusan, pengajaran dan pandangan industri.]'],
+      ['Bila kelas dan kedai dibuka?', '[Tarikh atau "tidak lama lagi". Langgan emel untuk dimaklumkan dahulu.]'],
+      ['Bagaimana bayaran dan penghantaran berfungsi?', 'Bayaran melalui FPX atau kad. Produk digital dimuat turun serta-merta; produk fizikal dihantar melalui kurier.']
+    ];
+    const faqs = faqData.map((f, i) => ({ q: f[0], a: f[1], open: s.faq === i, sign: s.faq === i ? '−' : '+', toggle: set({ faq: s.faq === i ? -1 : i }) }));
+
+    const cartCount = s.cart.length;
+    const leadSizes = [21, 24, 28];
+    const fsIdx = Math.min(2, Math.max(0, s.fs));
+    const leadStyle = 'margin:0 0 32px;font-family:Newsreader,Georgia,serif;line-height:1.5;font-size:' + leadSizes[fsIdx] + 'px';
+    const progStyle = 'position:fixed;top:0;left:0;height:3px;z-index:45;background:var(--gold);width:' + (s.progress || 0) + '%';
+    const tabDefs = [
+      ['articles', 'Tulisan', 'M5 4h14v16H5zM9 8h6M9 12h6M9 16h4'],
+      ['courses', 'Kelas', 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM10 8.5l5 3.5-5 3.5z'],
+      ['shop', 'Kedai', 'M6 8h12l-1 12H7zM9 8a3 3 0 0 1 6 0'],
+      ['cart', 'Troli', 'M6 6h15l-1.6 8.2a2 2 0 0 1-2 1.6H8.6a2 2 0 0 1-2-1.6L4.5 3H2']
+    ];
+    const tabs = tabDefs.map((t) => {
+      const active = t[0] === 'cart' ? s.modal === 'cart' : (screen === t[0] || (screen === 'article' && t[0] === 'articles') || (screen === 'course' && t[0] === 'courses'));
+      return {
+        label: t[1], icon: t[2],
+        go: t[0] === 'cart' ? set({ modal: 'cart' }) : set({ screen: t[0], modal: '', query: '', cat: 'Semua' }),
+        style: 'display:flex;flex-direction:column;align-items:center;gap:2px;min-width:64px;min-height:52px;padding:6px 10px;border-radius:14px;text-align:center;color:' + (active ? 'var(--accent)' : 'var(--muted)'),
+        badge: t[0] === 'cart' && cartCount > 0 ? String(cartCount) : '',
+        badgeStyle: t[0] === 'cart' && cartCount > 0 ? 'position:absolute;top:-6px;right:-10px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--accent);color:var(--on);font-size:11px;font-weight:600;line-height:18px;text-align:center' : 'display:none'
+      };
+    });
+    return {
+      tabs: tabs, leadStyle: leadStyle, progStyle: progStyle,
+      fontSmaller: set({ fs: Math.max(0, s.fs - 1) }), fontLarger: set({ fs: Math.min(2, s.fs + 1) }),
+      faqs: faqs,
+      rootStyle: rootStyle, nav: nav,
+      goHome: set({ screen: 'home', modal: '' }),
+      goArticles: set({ screen: 'articles', modal: '', query: '', cat: 'Semua' }),
+      goCourses: set({ screen: 'courses', modal: '' }),
+      goShop: set({ screen: 'shop', modal: '' }),
+      toggleDark: set({ dark: !dark }),
+      openCart: set({ modal: 'cart' }),
+      closeModal: set({ modal: '' }),
+      cartCount: cartCount,
+      isHome: screen === 'home', isArticles: screen === 'articles', isArticle: screen === 'article',
+      isCourses: screen === 'courses', isCourse: screen === 'course', isShop: screen === 'shop', isAbout: screen === 'about',
+      latest: articles.slice(0, 3).map(view),
+      filtered: filteredRaw.map(view), hasResults: filteredRaw.length > 0, noResults: filteredRaw.length === 0,
+      chips: chips, query: s.query, onQuery: (e) => this.setState({ query: e.target.value }),
+      cur: view(curRaw), related: articles.filter((a) => a.id !== curRaw.id).slice(0, 3).map(view),
+      videoOff: !s.video, videoOn: !!s.video, playVideo: set({ video: true }),
+      subscribed: s.subscribed, notSubscribed: !s.subscribed, subscribe: set({ subscribed: true }),
+      courseCards: courseCards, course: course, lessons: lessons, lessonNo: lessonIdx + 1, lessonTitle: course.lessons[lessonIdx][0],
+      enrolled: isEnrolled, notEnrolled: !isEnrolled, buyCourse: set({ modal: 'pay', payTarget: 'course:' + course.id, payStep: 'choose' }),
+      markDone: markDone, doneLabel: s.done[doneKey(lessonIdx)] ? 'Tanda belum selesai' : 'Tanda selesai',
+      doneCount: doneCount, lessonTotal: total,
+      barStyle: 'height:6px;border-radius:6px;background:var(--accent);width:' + Math.round((doneCount / total) * 100) + '%',
+      products: productViews,
+      showCart: s.modal === 'cart', cartEmpty: cartCount === 0, cartFull: cartCount > 0, cartItems: cartItems, hasPhysical: hasPhysical, hasDigital: hasDigital,
+      checkoutCart: set({ modal: 'pay', payTarget: 'cart', payStep: 'choose' }),
+      showPay: s.modal === 'pay', payChoose: s.payStep === 'choose', payDone: s.payStep === 'done',
+      payTitle: payIsCourse ? ('Daftar: ' + payCourse.title) : 'Bayar pesanan',
+      methods: methods, confirmPay: confirmPay, payMsg: s.payMsg
+    };
+  }
+}
+</script>
+</body>
+</html>
