@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Warna ikut prototaip. Nilai dalam format "R G B" supaya Tailwind boleh guna alfa. */
+:root {
+  --bg: 250 248 243;      /* #FAF8F3 */
+  --surface: 255 255 255;
+  --ink: 27 26 23;        /* #1B1A17 */
+  --muted: 92 90 82;
+  --line: 230 225 212;
+  --accent: 15 92 77;     /* #0F5C4D */
+  --soft: 227 239 234;    /* #E3EFEA */
+  --on: 255 255 255;
+  --gold: 184 134 43;     /* #B8862B, hiasan sahaja */
+}
+:root[data-theme="dark"] {
+  --bg: 18 19 17;
+  --surface: 27 28 25;
+  --ink: 243 241 234;
+  --muted: 168 165 155;
+  --line: 44 45 41;
+  --accent: 111 208 182;
+  --soft: 27 42 37;
+  --on: 11 31 26;
+  --gold: 212 166 74;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: 18 19 17; --surface: 27 28 25; --ink: 243 241 234; --muted: 168 165 155;
+    --line: 44 45 41; --accent: 111 208 182; --soft: 27 42 37; --on: 11 31 26; --gold: 212 166 74;
+  }
+}
+
+html { color-scheme: light dark; -webkit-text-size-adjust: 100%; }
+body { font-family: "Inter Variable", system-ui, sans-serif; background: rgb(var(--bg)); color: rgb(var(--ink)); font-size: 17px; line-height: 1.7; }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 2px; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+main > * { animation: rise .45s ease both; }
+@media (prefers-reduced-motion: reduce) {
+  main > * { animation: none; }
+  * { transition: none !important; }
+}
+
+/* Kandungan artikel (HTML dari Tiptap) */
+.prose-article { font-size: var(--article-size, 1.0625rem); line-height: 1.75; color: rgb(var(--ink)); }
+.prose-article h2 { font-family: "Newsreader Variable", Georgia, serif; font-weight: 500; font-size: 1.75em; line-height: 1.2; margin: 2em 0 .6em; }
+.prose-article h3 { font-family: "Newsreader Variable", Georgia, serif; font-weight: 500; font-size: 1.35em; margin: 1.6em 0 .5em; }
+.prose-article p { margin: 0 0 1.2em; }
+.prose-article a { color: rgb(var(--accent)); text-decoration: underline; text-underline-offset: 3px; }
+.prose-article ul { list-style: disc; padding-left: 1.4em; margin: 0 0 1.2em; }
+.prose-article ol { list-style: decimal; padding-left: 1.4em; margin: 0 0 1.2em; }
+.prose-article li { margin: .3em 0; }
+.prose-article blockquote { border-left: 3px solid rgb(var(--gold)); padding-left: 1em; margin: 1.5em 0; font-family: "Newsreader Variable", Georgia, serif; font-size: 1.15em; font-style: italic; }
+.prose-article img { max-width: 100%; height: auto; border-radius: 16px; margin: 1.5em 0; }
+.prose-article hr { border: 0; border-top: 1px solid rgb(var(--line)); margin: 2em 0; }
+.prose-article code { background: rgb(var(--soft)); padding: .1em .35em; border-radius: 6px; font-size: .9em; }
+.prose-article pre { background: rgb(var(--soft)); padding: 1em; border-radius: 12px; overflow-x: auto; margin: 0 0 1.2em; }
+.prose-article .video-embed { position: relative; aspect-ratio: 16 / 9; margin: 1.5em 0; border-radius: 20px; overflow: hidden; background: rgb(var(--ink)); }
+.prose-article .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
